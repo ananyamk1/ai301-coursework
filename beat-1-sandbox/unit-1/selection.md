@@ -1,86 +1,43 @@
-# Unit 1 — Issue Selection
-
-Path: `beat-1-sandbox/unit-1/selection.md`
-
-Record of the issue carried into Unit 2, and of the evaluation runs that produced
-`eval-run.txt`. This file is graded at the path above; a copy kept anywhere else in
-the repository is not read.
-
-Complete every labelled field below. Each is graded on its own; content placed under the
-wrong label is not graded.
-
----
+# Unit 1: Issue Selection
 
 ## Selected issue
+https://github.com/codepath/pathreview-ai301-fa26-s1/issues/68 — "Keyword search raises ZeroDivisionError when the index is empty"
 
-**Issue link**
-
-[The individual Path Review issue page. A link to the repository or the issue list
-does not satisfy this field.]
-
-**Verdict output**
-
-[Your skill's live-mode output for this issue, pasted verbatim and ending with the
-fenced JSON verdict block. A summary does not satisfy this field.]
-
-**The verdict must record `accept` for this issue.** Choose an issue your own skill
-accepts. If your skill rejects every candidate you try, that is a signal about your
-rubric rather than about the issues: revise it and re-run — retries are unlimited and a
-partial re-run costs about $0.20 — or run the skill on different candidates. Output
-recording `reject` for the issue you chose earns no credit for this field.
-
-```
-paste the output here, including the closing JSON block
+## Skill's verdict output
+```json
+{
+  "item": "https://github.com/codepath/pathreview-ai301-fa26-s1/issues/68",
+  "checks": [
+    {"name": "Maintainer activity", "grade": "pass", "evidence": "Human commit by Andrew Burke on Sep 16, 2026, 6 days before today"},
+    {"name": "Repository in use", "grade": "pass", "evidence": "Not archived; last push Sep 16, 2026, within 180 days"},
+    {"name": "Bounded newcomer scope", "grade": "pass", "evidence": "Single bug: add empty-corpus guard to index(); existing xfail test is the acceptance criterion"},
+    {"name": "Available to claim", "grade": "pass", "evidence": "No assignee, no linked PR; yulijasso's Sep 20 claim is a classmate comment — Path Review house rule makes it non-blocking"},
+    {"name": "Contribution policy compatible", "grade": "pass", "evidence": "No CONTRIBUTING.md or AI policy file found; silence passes"},
+    {"name": "Maintainer responsiveness", "grade": "unclear", "evidence": "5-issue sample shows no detectable maintainer comments from list view"}
+  ],
+  "verdict": "accept"
+}
 ```
 
----
+## Run history
+1. Filled the empty `rubric.md` template with 5 required checks (maintainer activity, repository in use, bounded newcomer scope, available to claim, contribution policy) plus 1 preferred check (maintainer responsiveness), covering all 5 eval categories.
+2. First full eval run: 15/20 agreement. Categories: claimed 4/4, clear-accept 4/8, dead-repo 3/3, policy 1/1, scope 3/4.
+3. Used a diagnostic script to pull full evidence text on the 5 disagreements (issue-01, 04, 09, 19, 15) instead of guessing from pass/fail alone.
+4. Found two check-wording problems: "Bounded newcomer scope" was rejecting multi-file tasks that were actually one coherent goal, and "Available to claim" was rejecting issues over old claim comments that were never followed by a PR.
+5. Rewrote both pass conditions — scope now asks "is this one deliverable," and claim status now treats a stale (90+ day), unfollowed claim as non-blocking.
+6. Re-ran just the 5 disputed issues: 5/5 agreement, including issue-15 (a false-accept) correcting to match gold too.
+7. Ran the full clean eval: 20/20 agreement, all 5 categories perfect. Saved via `--save-run eval-run.txt`.
+8. Ran live mode on 3 open Path Review issues (#37, #47, #68). All three accepted; selected #68.
 
-## Eval iterations
+## Issue analysis
+issue-09 (gold: accept). Before the rubric fix, my rubric said reject — "Available to claim" failed because a user named MesaJonathan had commented "I'd like to take a swing at this" back in 2022, and that claim was never withdrawn or turned into a PR. My original check treated any unresolved claim comment as disqualifying, with no way to recognize that a 3-year-old claim with no follow-up is effectively abandoned. After rewriting the check to allow a stale, unfollowed claim to pass, the verdict corrected to accept, matching gold.
 
-Quote source text directly in each field below. Paraphrase does not satisfy them.
+## Check rationale
+The current wording of "Available to claim" in my rubric.md:
+> Pass if no assignee, no open linked PR, AND any claim comment in the thread is either resolved (maintainer redirected it) or stale — 90+ days old with no PR ever following it and no newer activity in the thread. Fail only when a claim comment is unresolved AND still within 90 days, or a maintainer states the issue is currently being worked. A closed/merged linked PR alone never fails this check.
 
-**Run history**
-
-[The agreement score of each run you did, in order. A single run is a complete answer if
-only one run occurred. **The last score in your list must match the agreement line in the
-`eval-run.txt` you committed** — that file is the record of your final run.]
-
-**Issue analysis**
-
-[One scored issue, identified by id (`issue-01` through `issue-20`; the `calib-`
-issues are not scored). State your rubric's decision, the gold label, and the
-reasoning that produced your rubric's result.]
-
-**Check rationale**
-
-[One check from the `rubric.md` uploaded to `tools/issue-select/`, quoted as it is
-currently written, with the reasoning behind its current form.]
-
-**Trade-offs**
-
-[What the quoted check gives up. Any one of these is a complete answer: an issue whose
-result it changes, a canary you re-ran with `--only`, a case you accept it will miss, or a
-stated reason nothing changed elsewhere. "Nothing changed, and here is how I know" earns
-the point in full when the reason follows.]
-
----
+## Trade-offs
+Loosening "Available to claim" to ignore stale claims risks missing someone who's genuinely still working slowly; loosening "Bounded newcomer scope" to judge by "one deliverable" instead of file count risks accepting an issue that's technically one goal but still too large for a true first-timer.
 
 ## Selection rationale
-
-Graded on whether all three are answered, in your own words. Not on how good the
-reasoning is, and not on length — a short honest answer to each earns the full marks.
-This is also the basis for the claim comment you write in Unit 2.
-
-**Selection rationale**
-
-[Answer all three:
-
-1. The issue's fit to your interests and to the time available.
-2. What the verdict identified correctly, and what you weighed that the rubric could
-   not.
-3. The anticipated difficulty in claiming it.]
-
----
-
-Related paths: `eval-run.txt` in this directory; your skill's files in
-`tools/issue-select/`.
+I picked #68 over #37 and #47 (both accepted docs issues) because it has an existing `xfail` test as its acceptance criterion — when the empty-index guard is added and the marker removed, the test turns green, so "done" is unambiguous going into Unit 2's reproduction step. The docs issues are fine but their scope is closer-ended by writeup quality rather than a hard test, which is harder to verify objectively as a first contribution.
