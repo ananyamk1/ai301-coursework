@@ -36,4 +36,4 @@ you want to avoid. The skill uses this only to RANK the issues your
 rubric accepts, never to change a verdict: fit cannot rescue an issue
 your rubric rejects, and cannot sink one it accepts. -->
 
-(Write a few sentences here.)
+I'm comfortable with Python, SQL, and somewhat Java. I have worked well on lots of past data engineering and ML projects, and I'm still building confidence with big unfamiliar codebases. I'd rather start with something scoped and well-documented than somewhat of a gnarly core-logic bug tbh.
