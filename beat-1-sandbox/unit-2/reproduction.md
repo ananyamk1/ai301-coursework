@@ -19,8 +19,7 @@ ananyamk1
 
 **Claim comment**
 
-<!-- TODO: paste the permalink of your posted claim comment here (Copy link on the
-comment's ••• menu), replacing this line. The text below is what I posted. -->
+https://github.com/codepath/pathreview-ai301-fa26-s1/issues/68#issuecomment-5903184415
 
 I'd like to pick this one up as a first contribution. (Posting my own claim per the course's house rule, rather than waiting on the claims already in this thread.)
 
@@ -42,8 +41,7 @@ For transparency: I am a student working through CodePath's AI301 course, and I 
 
 **Reproduction comment**
 
-<!-- TODO: paste the permalink of your posted reproduction comment here, replacing this
-line. The text below is what I posted. -->
+https://github.com/codepath/pathreview-ai301-fa26-s1/issues/68#issuecomment-5903186167
 
 Reproduced. The `ZeroDivisionError` is raised by `index()`, before `search()` is ever called, so `search()`'s empty guard never gets a chance to run.
 
