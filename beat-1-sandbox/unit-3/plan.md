@@ -176,3 +176,14 @@ diff is 10 added lines and 4 removed, across the two files named under
 
 Nothing in the posted plan comment is now untrue, so no follow-up
 correction comment is needed on the issue.
+
+**Update while preparing the PR (unit 4).** Deviation 3 is now closed
+rather than open. With the project's full dev dependencies installed
+(`pip install -e ".[dev]"` into `.venv`, which is what the Makefile
+uses), `make test-unit` collects the whole unit suite with no errors:
+`376 passed, 52 xfailed` on this branch against `375 passed, 53 xfailed`
+on `main`, the difference being exactly `test_empty_index` moving from
+XFAIL to PASSED. `make lint` and `make typecheck` are clean, and
+`make test-integration` stops with "no tests ran" because Path Review
+has no integration tests yet. Outputs are in the PR's Testing section.
+The code change itself is unchanged from the build described above.
